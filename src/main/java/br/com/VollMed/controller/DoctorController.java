@@ -3,6 +3,7 @@ package br.com.VollMed.controller;
 import br.com.VollMed.domain.doctor.Doctor;
 import br.com.VollMed.dto.DoctorCreateDTO;
 import br.com.VollMed.dto.DoctorListDTO;
+import br.com.VollMed.dto.DoctorUpdateDTO;
 import br.com.VollMed.infrastructure.service.DoctorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,9 @@ public class DoctorController {
         return ResponseEntity.ok(doctor);
     }
 
-
+    @PutMapping
+    public ResponseEntity<DoctorUpdateDTO> update(@RequestBody DoctorUpdateDTO doctorUpdateDTO) {
+        var doctor = doctorService.update(doctorUpdateDTO);
+        return ResponseEntity.ok(doctor);
+    }
 }
