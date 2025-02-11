@@ -3,6 +3,7 @@ package br.com.VollMed.infrastructure.service;
 import br.com.VollMed.domain.doctor.Doctor;
 import br.com.VollMed.dto.DoctorCreateDTO;
 import br.com.VollMed.dto.DoctorListDTO;
+import br.com.VollMed.dto.DoctorUpdateDTO;
 import br.com.VollMed.infrastructure.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,13 @@ public class DoctorService {
     @Transactional
     public Page<DoctorListDTO> list(Pageable pageable) {
         return doctorRepository.findAllByActiveTrue(pageable).map(DoctorListDTO::new);
+    }
+
+    @Transactional
+    public DoctorUpdateDTO update(DoctorUpdateDTO doctorUpdateDTO) {
+        var doctor = doctorRepository.findById(doctorUpdateDTO.getId())
+                .orElseThrow(() -> new RuntimeException());
+        doctor.update(doctorUpdateDTO);
+        return doctorUpdateDTO;
     }
 }
