@@ -1,5 +1,6 @@
 package br.com.VollMed.domain.address;
 
+import br.com.VollMed.dto.AddressDTO;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,4 +29,15 @@ public class Address {
     private String complement;
 
     private String number;
+
+    public Address(AddressDTO address) {
+        this.city = address.getCity();
+        this.street = address.getStreet();
+        this.state = address.getState();
+        this.neighborhood = address.getNeighborhood();
+        this.zip_code = address.getZip_code();
+        this.state_code = address.getState_code();
+        this.complement = address.getComplement();
+        this.number = address.getNumber();
+    }
 }
