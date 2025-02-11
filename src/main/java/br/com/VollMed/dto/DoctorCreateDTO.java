@@ -1,6 +1,7 @@
 package br.com.VollMed.dto;
 
 import br.com.VollMed.domain.doctor.Speciality;
+import br.com.VollMed.util.MaskFormatter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,5 +36,11 @@ public class DoctorCreateDTO {
     @Valid
     private AddressDTO address;
 
+    public String getCpf() {
+        return MaskFormatter.maskCpf(this.cpf);
+    }
 
+    public String getPhone() {
+        return MaskFormatter.mackPhone(this.phone);
+    }
 }
