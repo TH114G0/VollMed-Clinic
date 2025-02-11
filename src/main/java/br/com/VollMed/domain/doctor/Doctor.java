@@ -2,6 +2,7 @@ package br.com.VollMed.domain.doctor;
 
 import br.com.VollMed.domain.address.Address;
 import br.com.VollMed.dto.DoctorCreateDTO;
+import br.com.VollMed.dto.DoctorUpdateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -47,5 +48,17 @@ public class Doctor {
         this.phone = doctorCreateDTO.getPhone();
         this.speciality = doctorCreateDTO.getSpeciality();
         this.address = new Address(doctorCreateDTO.getAddress());
+    }
+
+    public void update(DoctorUpdateDTO doctorUpdateDTO) {
+        if(doctorUpdateDTO.getName() != null && !doctorUpdateDTO.getName().isBlank()) {
+            this.name = doctorUpdateDTO.getName();
+        }
+        if (doctorUpdateDTO.getEmail() != null && !doctorUpdateDTO.getEmail().isBlank()) {
+            this.email = doctorUpdateDTO.getEmail();
+        }
+        if (doctorUpdateDTO.getAddress() != null) {
+            this.address.update(doctorUpdateDTO.getAddress());
+        }
     }
 }
