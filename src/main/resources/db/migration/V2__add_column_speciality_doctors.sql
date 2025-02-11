@@ -1,0 +1,1 @@
+ALTER TABLE doctors ADD speciality VARCHAR(100) NOT NULL;
