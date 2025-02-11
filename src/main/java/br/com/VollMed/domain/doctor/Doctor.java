@@ -1,6 +1,6 @@
 package br.com.VollMed.domain.doctor;
 
-import br.com.VollMed.domain.Address.Address;
+import br.com.VollMed.domain.address.Address;
 import jakarta.persistence.*;
 import lombok.*;
 

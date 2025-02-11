@@ -1,4 +1,4 @@
-package br.com.VollMed.domain.Address;
+package br.com.VollMed.domain.address;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
