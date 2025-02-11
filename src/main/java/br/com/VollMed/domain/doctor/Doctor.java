@@ -1,6 +1,7 @@
 package br.com.VollMed.domain.doctor;
 
 import br.com.VollMed.domain.address.Address;
+import br.com.VollMed.dto.DoctorCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,9 +30,22 @@ public class Doctor {
 
     private LocalDateTime created_at;
 
-    @Embedded
-    private Address address;
+    private boolean active;
 
     @Enumerated(EnumType.STRING)
     private Speciality speciality;
+
+    @Embedded
+    private Address address;
+
+    public Doctor(DoctorCreateDTO doctorCreateDTO) {
+        this.created_at = LocalDateTime.now();
+        this.active = true;
+        this.name = doctorCreateDTO.getName();
+        this.email = doctorCreateDTO.getEmail();
+        this.cpf = doctorCreateDTO.getCpf();
+        this.phone = doctorCreateDTO.getPhone();
+        this.speciality = doctorCreateDTO.getSpeciality();
+        this.address = new Address(doctorCreateDTO.getAddress());
+    }
 }
