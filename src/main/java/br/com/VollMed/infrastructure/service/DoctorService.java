@@ -4,7 +4,9 @@ import br.com.VollMed.domain.doctor.Doctor;
 import br.com.VollMed.dto.DoctorCreateDTO;
 import br.com.VollMed.dto.DoctorListDTO;
 import br.com.VollMed.dto.DoctorUpdateDTO;
+import br.com.VollMed.dto.ResponseDoctorDTO;
 import br.com.VollMed.infrastructure.repository.DoctorRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,9 +19,9 @@ public class DoctorService {
     private DoctorRepository doctorRepository;
 
     @Transactional
-    public ResponseDoctor create(DoctorCreateDTO doctorCreateDTO) {
+    public ResponseDoctorDTO create(DoctorCreateDTO doctorCreateDTO) {
         var doctor = doctorRepository.save(new Doctor(doctorCreateDTO));
-        return new ResponseDoctor(doctor);
+        return new ResponseDoctorDTO(doctor);
     }
 
     @Transactional
@@ -30,7 +32,7 @@ public class DoctorService {
     @Transactional
     public DoctorUpdateDTO update(DoctorUpdateDTO doctorUpdateDTO) {
         var doctor = doctorRepository.findById(doctorUpdateDTO.getId())
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new EntityNotFoundException("ID informado " + doctorUpdateDTO.getId() + ", não foi encontrado!"));
         doctor.update(doctorUpdateDTO);
         return doctorUpdateDTO;
     }
@@ -38,7 +40,13 @@ public class DoctorService {
     @Transactional
     public void delete(Long id) {
         var doctor = doctorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+                .orElseThrow(() -> new EntityNotFoundException("ID informado " + id + ", não foi encontrado!"));
         doctor.delete();
+    }
+
+    public ResponseDoctorDTO details(Long id) {
+        var doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("ID informado " + id + ", não foi encontrado!"));
+        return new ResponseDoctorDTO(doctor);
     }
 }
