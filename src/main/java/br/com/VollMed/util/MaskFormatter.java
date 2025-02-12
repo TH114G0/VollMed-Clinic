@@ -4,7 +4,7 @@ public class MaskFormatter {
 
     public static String maskCpf(String cpf) {
         if (cpf.length() != 11) {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("CPF deve conter 11 dígitos.");
         }
         return cpf.substring(0,3) + "." +
                 cpf.substring(3,6) + "." +
@@ -14,7 +14,7 @@ public class MaskFormatter {
 
     public static String mackPhone(String phone) {
         if (phone.length() != 11) {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("Número do celular deve conter 11 dígitos.");
         }
         return "("+phone.substring(0,2)+") " +
                 phone.substring(2,7) + "-" +
@@ -23,7 +23,7 @@ public class MaskFormatter {
 
     public static String maskZipCode(String zipCode) {
         if (zipCode.length() != 8) {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("CEP deve conter 8 dígitos.");
         }
         return zipCode.substring(0, 5) + "-" +
                 zipCode.substring(5,8);
