@@ -1,0 +1,1 @@
+ALTER TABLE doctors ADD inactive_at TIMESTAMP null;
