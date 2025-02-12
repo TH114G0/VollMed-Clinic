@@ -31,6 +31,8 @@ public class Doctor {
 
     private LocalDateTime created_at;
 
+    private LocalDateTime inactive_at;
+
     private boolean active;
 
     @Enumerated(EnumType.STRING)
@@ -60,5 +62,10 @@ public class Doctor {
         if (doctorUpdateDTO.getAddress() != null) {
             this.address.update(doctorUpdateDTO.getAddress());
         }
+    }
+
+    public void delete() {
+        this.inactive_at = LocalDateTime.now();
+        this.active = false;
     }
 }
