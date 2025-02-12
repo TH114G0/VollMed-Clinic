@@ -2,7 +2,7 @@ spring:
   application:
     name: VollMed - Sistema de Clinica
 
-  #  Configurando conexão com banco de dados.
+  #  Configurando conexï¿½o com banco de dados.
   datasource:
     url: jdbc:mysql://localhost:3306/api_vollmed
     username: root
@@ -33,3 +33,12 @@ spring:
       org.springframework: WARN
       br.com.manager: DEBUG
       org.flywaydb.core: DEBUG
+
+  springdoc:
+    api-docs:
+      enabled: true
+    swagger-ui:
+      enabled: true
+    default-consumes-media-type: application/json
+    default-produces-media-type: application/json
+    paths-to-match: /**
