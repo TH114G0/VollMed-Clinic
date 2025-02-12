@@ -17,8 +17,9 @@ public class DoctorService {
     private DoctorRepository doctorRepository;
 
     @Transactional
-    public Doctor create(DoctorCreateDTO doctorCreateDTO) {
-        return doctorRepository.save(new Doctor(doctorCreateDTO));
+    public ResponseDoctor create(DoctorCreateDTO doctorCreateDTO) {
+        var doctor = doctorRepository.save(new Doctor(doctorCreateDTO));
+        return new ResponseDoctor(doctor);
     }
 
     @Transactional
@@ -32,5 +33,12 @@ public class DoctorService {
                 .orElseThrow(() -> new RuntimeException());
         doctor.update(doctorUpdateDTO);
         return doctorUpdateDTO;
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        var doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException());
+        doctor.delete();
     }
 }
