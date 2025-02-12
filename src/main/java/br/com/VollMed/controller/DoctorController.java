@@ -4,7 +4,7 @@ import br.com.VollMed.dto.DoctorCreateDTO;
 import br.com.VollMed.dto.DoctorListDTO;
 import br.com.VollMed.dto.DoctorUpdateDTO;
 import br.com.VollMed.infrastructure.service.DoctorService;
-import br.com.VollMed.infrastructure.service.ResponseDoctor;
+import br.com.VollMed.dto.ResponseDoctorDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @PostMapping
-    public ResponseEntity<ResponseDoctor> create(@RequestBody @Valid DoctorCreateDTO doctorCreateDTO) {
+    public ResponseEntity<ResponseDoctorDTO> create(@RequestBody @Valid DoctorCreateDTO doctorCreateDTO) {
         var doctor = doctorService.create(doctorCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(doctor);
     }
@@ -43,5 +43,11 @@ public class DoctorController {
     public ResponseEntity<Object> delete(@PathVariable Long id) {
         doctorService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDoctorDTO> details(@PathVariable Long id) {
+        var doctor = doctorService.details(id);
+        return ResponseEntity.ok(doctor);
     }
 }
