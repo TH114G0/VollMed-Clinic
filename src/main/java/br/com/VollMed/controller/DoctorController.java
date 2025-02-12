@@ -1,10 +1,10 @@
 package br.com.VollMed.controller;
 
-import br.com.VollMed.domain.doctor.Doctor;
 import br.com.VollMed.dto.DoctorCreateDTO;
 import br.com.VollMed.dto.DoctorListDTO;
 import br.com.VollMed.dto.DoctorUpdateDTO;
 import br.com.VollMed.infrastructure.service.DoctorService;
+import br.com.VollMed.infrastructure.service.ResponseDoctor;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @PostMapping
-    public ResponseEntity<Doctor> create(@RequestBody @Valid DoctorCreateDTO doctorCreateDTO) {
+    public ResponseEntity<ResponseDoctor> create(@RequestBody @Valid DoctorCreateDTO doctorCreateDTO) {
         var doctor = doctorService.create(doctorCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(doctor);
     }
@@ -37,5 +37,11 @@ public class DoctorController {
     public ResponseEntity<DoctorUpdateDTO> update(@RequestBody DoctorUpdateDTO doctorUpdateDTO) {
         var doctor = doctorService.update(doctorUpdateDTO);
         return ResponseEntity.ok(doctor);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        doctorService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
